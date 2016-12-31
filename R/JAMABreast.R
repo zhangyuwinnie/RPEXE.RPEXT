@@ -17,5 +17,5 @@
 #' data(JAMABreast)
 #' vali_indi <- df[,1]
 #' 
-#' 
+#' @export
 "JAMABreast"
