@@ -4,14 +4,14 @@
 \alias{logrank_Yates228}
 \title{Obtain the logrank test}
 \usage{
-logrank_Yates228(x1, x2, Alpha)
+logrank_Yates228(x1, x2, alpha)
 }
 \arguments{
 \item{x1}{Nx2 data matrix,first columen represents survival time of the i-th subject, second column represents censored flag (0 if not censored, 1 if censored)}
 
 \item{x2}{Nx2 data matrix,first columen represents survival time of the i-th subject, second column represents censored flag (0 if not censored, 1 if censored)}
 
-\item{Alpha}{Significance level(optional, default is 0.05)}
+\item{alpha}{Significance level(optional, default is 0.05)}
 }
 \value{
 Log-rank statistics
@@ -25,7 +25,7 @@ curves (i.e. the probability of an event occurring at any time point is
 the same for each population).
 }
 \examples{
-logrank_Yates228(x1,x2,0.05)
-logrank_Yates228(x1,x2)
+
+
 }
 

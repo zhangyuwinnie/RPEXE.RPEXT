@@ -51,19 +51,19 @@
 #' curves (i.e. the probability of an event occurring at any time point is
 #' the same for each population). 
 #' 
-#' @usage logrank_Yates228(x1, x2, Alpha)
+#' @usage logrank_Yates228(x1, x2, alpha)
 #'
 #' @param x1 Nx2 data matrix,first columen represents survival time of the i-th subject, second column represents censored flag (0 if not censored, 1 if censored)
 #' @param x2 Nx2 data matrix,first columen represents survival time of the i-th subject, second column represents censored flag (0 if not censored, 1 if censored)
-#' @param Alpha  Significance level(optional, default is 0.05)
+#' @param alpha  Significance level(optional, default is 0.05)
 #'
 #' @return Log-rank statistics
 #' @export
 #'
 #' @examples
-#' logrank_Yates228(x1,x2,0.05)
-#' logrank_Yates228(x1,x2)
-logrank_Yates228 <- function(x1, x2, Alpha=NA,alpha0){
+#' 
+#' 
+logrank_Yates228 <- function(x1, x2, alpha=NULL){
   #     Inputs:
   #           X1 and X2 (mandatory)- Nx2 data matrix:
   #                     (X:,1) = survival time of the i-th subject
@@ -71,12 +71,11 @@ logrank_Yates228 <- function(x1, x2, Alpha=NA,alpha0){
   #                             (0 if not censored; 1 if censored)
   
   #reset parameter inputs
-  if (!is.na(Alpha))
+  if (is.null(alpha))
   {
-    alpha = alpha0
-  } else{
     alpha = 0.05
   }
+  
   
   kmout1 <- kmplot(x1, 0.05)
   kmout2 <- kmplot(x2, 0.05)
@@ -200,7 +199,7 @@ logrank_Yates228 <- function(x1, x2, Alpha=NA,alpha0){
   }
   SUL = sqrt(sum(table[,9])) #Compute the total standard error
   z = abs((UL-0.5)/SUL) # normalized UL with Yates'es correction
-  erfc <- function(x) 2*pnorm(x * sqrt(2), lower = FALSE)
+  erfc <- function(x) 2*pnorm(x * sqrt(2), lower.tail  = FALSE)
   p = 2*(1-0.5*erfc(-z/sqrt(2))) # p-value
   
   # display results

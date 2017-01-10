@@ -179,9 +179,9 @@ er_N_valid_prechem_n = intersect(er_N_valid, which(chemo_n_indi==1))
 # ER- training, res+
 # [length(er_N_train_pres_p) sum(bstcens[er_N_train_pres_p])]
 #   112    36
-train.er_n_pres_p = RPEXEv1_2(EventTime = 'EventTime',bsttime[er_N_train_pres_p],
-                              Censor = 'Censor',bstcens[er_N_train_pres_p],Trend = 'Trend',
-                              trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+train.er_n_pres_p = RPEXEv1_2(bsttime[er_N_train_pres_p],
+                              bstcens[er_N_train_pres_p],
+                              trend = 3,criticalps=0.02)
 
 train.er_n_pres_p$times 
 train.er_n_pres_p$pvalues
@@ -189,96 +189,96 @@ train.er_n_pres_p$pvalues
 #     2.7324    0.0007
 
 # ER- training, res-
-train.er_n_pres_n = RPEXEv1_2(EventTime = 'EventTime',bsttime[er_N_train_pres_n],
-                              Censor = 'Censor',bstcens[er_N_train_pres_n],Trend = 'Trend',
-                              trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+train.er_n_pres_n = RPEXEv1_2(bsttime[er_N_train_pres_n],
+                             bstcens[er_N_train_pres_n],
+                             trend = 3,criticalps=0.02)
 
 train.er_n_pres_n$times 
 train.er_n_pres_n$pvalues
 
 # ER- validation, res+
-valid.er_n_pres_p = RPEXEv1_2(EventTime = 'EventTime',bsttime[er_N_valid_pres_p],
-                              Censor = 'Censor',bstcens[er_N_valid_pres_p],Trend = 'Trend',
-                              trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+valid.er_n_pres_p = RPEXEv1_2(bsttime[er_N_valid_pres_p],
+                              bstcens[er_N_valid_pres_p],
+                              trend = 3,criticalps=0.02)
 
 valid.er_n_pres_p$times
 valid.er_n_pres_p$pvalues
 
 # ER- validation, res-
-valid.er_n_pres_n = RPEXEv1_2(EventTime = 'EventTime',bsttime[er_N_valid_pres_n],
-                              Censor = 'Censor',bstcens[er_N_valid_pres_n],Trend = 'Trend',
-                              trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+valid.er_n_pres_n = RPEXEv1_2(bsttime[er_N_valid_pres_n],
+                              bstcens[er_N_valid_pres_n],
+                              trend = 3,criticalps=0.02)
 
 valid.er_n_pres_n$times
 valid.er_n_pres_n$pvalues
 
 # ER all; res+ 
-all.er_n_pres_p = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_train_pres_p,er_N_valid_pres_p)],
-                            Censor = 'Censor',bstcens[c(er_N_train_pres_p,er_N_valid_pres_p)],Trend = 'Trend',
-                            trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+all.er_n_pres_p = RPEXEv1_2(bsttime[c(er_N_train_pres_p,er_N_valid_pres_p)],
+                            bstcens[c(er_N_train_pres_p,er_N_valid_pres_p)],
+                            trend = 3,criticalps=0.02)
 all.er_n_pres_p$times
 all.er_n_pres_p$pvalues
 
 # ER all; res- 
-all.er_n_pres_n = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_train_pres_n,er_N_valid_pres_n)],
-                            Censor = 'Censor',bstcens[c(er_N_train_pres_n,er_N_valid_pres_n)],Trend = 'Trend',
-                            trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+all.er_n_pres_n = RPEXEv1_2(bsttime[c(er_N_train_pres_n,er_N_valid_pres_n)],
+                            bstcens[c(er_N_train_pres_n,er_N_valid_pres_n)],
+                            trend = 3,criticalps=0.02)
 all.er_n_pres_n$times
 all.er_n_pres_n$pvalues
 
 # ACES
 # Train, ER-, chemo+
-train.er_n_prechem_p = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_train_prechem_p)],
-                                 Censor = 'Censor',bstcens[c(er_N_train_prechem_p)],Trend = 'Trend',
-                                 trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+train.er_n_prechem_p = RPEXEv1_2(bsttime[c(er_N_train_prechem_p)],
+                                 bstcens[c(er_N_train_prechem_p)],
+                                 trend = 3,criticalps=0.02)
 train.er_n_prechem_p$times 
 train.er_n_prechem_p$pvalues
 
 # Train, ER-, chemo-
-train.er_n_prechem_n = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_train_prechem_n)],
-                                 Censor = 'Censor',bstcens[c(er_N_train_prechem_n)],Trend = 'Trend',
-                                 trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+train.er_n_prechem_n = RPEXEv1_2(bsttime[c(er_N_train_prechem_n)],
+                                bstcens[c(er_N_train_prechem_n)],
+                                trend = 3,criticalps=0.02)
 train.er_n_prechem_n$times 
 train.er_n_prechem_n$pvalues          
 
 # Valid, ER-, chemo+
-valid.er_n_prechem_p = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_valid_prechem_p)],
-                                 Censor = 'Censor',bstcens[c(er_N_valid_prechem_p)],Trend = 'Trend',
-                                 trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+valid.er_n_prechem_p = RPEXEv1_2(bsttime[c(er_N_valid_prechem_p)],
+                                 bstcens[c(er_N_valid_prechem_p)],
+                                 trend = 3,criticalps=0.02)
 valid.er_n_prechem_p$times 
 valid.er_n_prechem_p$pvalues  
 
 # Valid, ER-, chemo-
-valid.er_n_prechem_n = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_valid_prechem_n)],
-                                 Censor = 'Censor',bstcens[c(er_N_valid_prechem_n)],Trend = 'Trend',
-                                 trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+valid.er_n_prechem_n = RPEXEv1_2(bsttime[c(er_N_valid_prechem_n)],
+                                 bstcens[c(er_N_valid_prechem_n)],
+                                 trend = 3,criticalps=0.02)
 valid.er_n_prechem_n$times 
 valid.er_n_prechem_n$pvalues   
 
 # ER all; chemo+ 
-all.er_n_prechem_p = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_train_prechem_p,er_N_valid_prechem_p)],
-                               Censor = 'Censor',bstcens[c(er_N_train_prechem_p,er_N_valid_prechem_p)],Trend = 'Trend',
-                               trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+all.er_n_prechem_p = RPEXEv1_2(bsttime[c(er_N_train_prechem_p,er_N_valid_prechem_p)],
+                               bstcens[c(er_N_train_prechem_p,er_N_valid_prechem_p)],
+                               trend = 3,criticalps=0.02)
 all.er_n_prechem_p$times 
 all.er_n_prechem_p$pvalues 
 
 # ER all; chemo- 
-all.er_n_prechem_n = RPEXEv1_2(EventTime = 'EventTime',bsttime[c(er_N_train_prechem_n,er_N_valid_prechem_n)],
-                               Censor = 'Censor',bstcens[c(er_N_train_prechem_n,er_N_valid_prechem_n)],Trend = 'Trend',
-                               trend = 3,Criticalp = 'Criticalp',criticalps=0.02)
+all.er_n_prechem_n = RPEXEv1_2(bsttime[c(er_N_train_prechem_n,er_N_valid_prechem_n)],
+                               bstcens[c(er_N_train_prechem_n,er_N_valid_prechem_n)],
+                               trend = 3,criticalps=0.02)
 all.er_n_prechem_n$times 
 all.er_n_prechem_n$pvalues 
 
 ## Run the Kaplan-Meier's plot and the exponential plot;
 
 # Example, DLDA, training, cPR
-train.er_n_pres_p = RPEXEv1_2(EventTime = 'EventTime',bsttime[er_N_train_pres_p],
-                              Censor = 'Censor',bstcens[er_N_train_pres_p],Trend = 'Trend',
-                              trend = 3,Criticalp = 'Criticalp',criticalps=0.05)
+train.er_n_pres_p = RPEXEv1_2(bsttime[er_N_train_pres_p],
+                              bstcens[er_N_train_pres_p],
+                              trend = 3,criticalps=0.05)
 # DLDA, training, RD
-train.er_n_pres_n = RPEXEv1_2(EventTime = 'EventTime',bsttime[er_N_train_pres_n],
-                              Censor = 'Censor',bstcens[er_N_train_pres_n],Trend = 'Trend',
-                              trend = 3,Criticalp = 'Criticalp',criticalps=0.05)
+train.er_n_pres_n = RPEXEv1_2(bsttime[er_N_train_pres_n],
+                              bstcens[er_N_train_pres_n],
+                              trend = 3,criticalps=0.05)
 
 
 # plot the two overlaid Kaplan-Meier curves;

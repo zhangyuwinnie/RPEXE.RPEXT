@@ -4,18 +4,18 @@
 \alias{RPEXEv1_2}
 \title{RPEXE}
 \usage{
-RPEXEv1_2(EventTime,Censor,CutTimes, Trend, Criticalp)
+RPEXEv1_2(eventtime,censor,cuttime, trend,criticalps)
 }
 \arguments{
-\item{EventTime}{A sequence of times where the events occur}
+\item{eventtime}{A sequence of times where the events occur}
 
-\item{Censor}{A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)}
+\item{censor}{A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)}
 
-\item{CutTimes}{A vector of unique, sorted, possible times to make the cuts. Default is sorted (from small to
+\item{cuttime}{A vector of unique, sorted, possible times to make the cuts. Default is sorted (from small to
 large) event times
 Default = 'EventTime'}
 
-\item{Trend}{An input having indicating the monotonicity assumption
+\item{trend}{An input having indicating the monotonicity assumption
 -- 0: no monotonic assumption
 
 -- 1: failure rate is decreasing over time
@@ -36,7 +36,7 @@ Default = 'EventTime'}
       
 Default == 0}
 
-\item{Criticalp}{The critical (naive) p-value cutoff where all p-values 
+\item{criticalps}{The critical (naive) p-value cutoff where all p-values 
 in the backward elimination that are lower than this 
 will be regarded as being significant. The prediction of 
 the survival probability will be made on 100 equally

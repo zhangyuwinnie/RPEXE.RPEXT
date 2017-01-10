@@ -155,6 +155,6 @@ km <- function(time, censor, plotcens){
         }
     }
   }
- 
+
   
 }

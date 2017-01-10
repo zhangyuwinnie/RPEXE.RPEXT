@@ -52,18 +52,12 @@ logrank(x1,x2)
 (0.3276-0.3796)/sqrt(0.3276*(1-0.3276)/53+0.3796*(1-0.3796)/47)
 
 # Fit the rpexe with monotonic order restriction;
-pexeoutA     =  RPEXEv1_2(EventTime = 'EventTime',times[armsA_ID],
-                          Censor = 'Censor',censor[armsA_ID],Trend = 'Trend',
-                          trend = 1,Criticalp = 'Criticalp',criticalps=0.05)
+pexeoutA     =  RPEXEv1_2(times[armsA_ID],censor[armsA_ID],trend = 1,criticalps=0.05)
 
-pexeoutB     =  RPEXEv1_2(EventTime = 'EventTime',times[armsB_ID],
-                          Censor = 'Censor',censor[armsB_ID],Trend = 'Trend',
-                          trend = 1,Criticalp = 'Criticalp',criticalps=0.05)
+pexeoutB     =  RPEXEv1_2(times[armsB_ID],censor[armsB_ID],trend = 1,criticalps=0.05)
 
 # combined
-pexeout = RPEXEv1_2(EventTime = 'EventTime',times,
-                    Censor = 'Censor',censor,Trend = 'Trend',
-                    trend = 1,Criticalp = 'Criticalp',criticalps=0.05)
+pexeout = RPEXEv1_2(times,censor,trend = 1,criticalps=0.05)
 
 # calculate the ttot and n from a), 0-2.777, b), 2.777-8.959, c), 8,959-end;
 #

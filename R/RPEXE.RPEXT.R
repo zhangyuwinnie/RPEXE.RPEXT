@@ -1,5 +1,6 @@
 #' @title RPEXE.RPEXT
-#'
+#' @name RPEXE.RPEXT
+#' @docType package
 #' @description The package allows you to .....
 #'
 #' @details This reduced piecewise exponential survival software implements the likelihood 
@@ -13,5 +14,51 @@
 #' @references 
 #' Han, G., Schell, M. J., and Kim, J. (2009) Improved survival modeling using a piece- wise exponential approach
 #' 
-"_PACKAGE"
-#> [1] "_PACKAGE"
+NULL
+
+#' RPEXE_fitting
+#' 
+#' A dataset containing ....
+#' 
+#' \itemize{
+#'   \item first column. times
+#'   \item second column. censor
+#'   \item group
+#' }
+#' @docType data
+#' @keywords datasets
+#' @name data2
+#' @usage data(data2)
+NULL
+
+#' JAMA Breast cancer 
+#' 
+#' A dataset containing ....
+#' 
+#' \itemize{
+#'   \item validate: ... 
+#'   \item drfs: .... 
+#'   \item drfs.time: ...
+#'   \item group
+#' }
+#' @docType data
+#' @keywords datasets
+#' @name df
+#' @usage data(df)
+NULL
+
+#' None Small Cell Lung cancer data
+#' 
+#' A dataset containing ....
+#' 
+#' \itemize{
+#'   \item validate: ... 
+#'   \item drfs: .... 
+#'   \item drfs.time: ...
+#'   \item group
+#' }
+#' @docType data
+#' @keywords datasets
+#' @name simple
+#' @usage data(simple)
+NULL

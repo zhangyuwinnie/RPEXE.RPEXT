@@ -41,12 +41,12 @@
 #'
 #' @description  RPEXE
 #'
-#' @param EventTime A sequence of times where the events occur
-#' @param Censor A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)
-#' @param CutTimes A vector of unique, sorted, possible times to make the cuts. Default is sorted (from small to
+#' @param eventtime A sequence of times where the events occur
+#' @param censor A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)
+#' @param cuttime A vector of unique, sorted, possible times to make the cuts. Default is sorted (from small to
 #'                large) event times
 #'                Default = 'EventTime'
-#' @param Trend An input having indicating the monotonicity assumption
+#' @param trend An input having indicating the monotonicity assumption
 #'                -- 0: no monotonic assumption
 #'                
 #'                -- 1: failure rate is decreasing over time
@@ -66,7 +66,7 @@
 #'                      the peak removed first
 #'                      
 #'                Default == 0
-#' @param Criticalp  The critical (naive) p-value cutoff where all p-values 
+#' @param criticalps  The critical (naive) p-value cutoff where all p-values 
 #'                in the backward elimination that are lower than this 
 #'                will be regarded as being significant. The prediction of 
 #'                the survival probability will be made on 100 equally
@@ -75,7 +75,7 @@
 #'                all the changepoints. 
 #'                Default == -1 (equivalent to NA).
 #'
-#' @usage RPEXEv1_2(EventTime,Censor,CutTimes, Trend, Criticalp)
+#' @usage RPEXEv1_2(eventtime,censor,cuttime, trend,criticalps)
 #'
 #' @return
 #' times: times to make the cuts
@@ -90,7 +90,7 @@
 #' @export
 #'
 #' @examples
-RPEXEv1_2 <- function(EventTime=NA,eventtime,Censor=NA,censor,CutTimes=NA,cuttime=1,Trend=NA,trend=0, Criticalp = NA, criticalps)
+RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, criticalps=NULL)
 {
 
 
@@ -103,27 +103,25 @@ RPEXEv1_2 <- function(EventTime=NA,eventtime,Censor=NA,censor,CutTimes=NA,cuttim
   
 
   #reset parameter inputs
-    if (!is.na(EventTime))
-       times= eventtime
-    if (!is.na(Censor))
+    if (!is.null(eventtime))
+       times = eventtime
+    if (!is.null(censor))
        censoring= censor
-    if (!is.na(CutTimes))
+    if (!is.null(cuttime))
       {
        cuttimes    = cuttime
        cuttimes_default = 1
        }
-    if (!is.na(Trend))
+    if (!is.null(trend))
       {
        monotone= trend
        monotone_default   = 1
       }
-    if (!is.na(Criticalp))
+    if (!is.null(criticalps))
      {
        criticalp=criticalps
        criticalp_default = 1
      }
-    if (is.na(EventTime)||is.na(Censor))
-       cat("Unrecognized option")
   # Compute the time of the death(in increasing order), the total time on
   # test, and the number of deaths corresponding to ttot.
   # These quantities will be used later.
