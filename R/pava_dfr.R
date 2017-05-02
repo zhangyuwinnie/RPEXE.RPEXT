@@ -1,32 +1,26 @@
-#merge certain entries to make the sequence of ttot to be non decreasing
-#Input:
-#      time_die == a sequence of times where deaths happened.
-#      ttot     == the total time on test at each time point.
-#      deaths   == the number of deaths at each time point.
-#Output:
-#      time2    == the merged time_die
-#      ttot2    == .......... ttot
-#      deaths2  == .......... deaths
-
-#' Pava_dfr
-#'
-#' Merge certain entries to make the sequence of ttot to be non decreasing
-#'
-#'
-#' @param time_die 
-#' @param ttot 
-#' @param deaths 
-#'
+#' @title PAVA order restriction under decreasing failure rate (DFR)
+#' 
+#' @description This function imposes the PAVA DFR order restriction by eliminating change-points violating the restriction 
+#' 
 #' @usage pava_dfr(time_die,ttot,deaths)
 #' 
+#' @param time_die event times
+#' @param ttot the total time on test (ttot) corresponding to the event times
+#' @param deaths the number of deaths at each event time
+#' 
 #' @return
-#' time2: the merged time_die
-#' ttot2: the merged ttot
-#' deaths2 the merged deaths
+#' time2: the event times after PAVA
+#' ttot2: the corresponding ttot
+#' deaths2 the corresponding number of deaths
 #' 
 #' @export
 #'
 #' @examples
+#' data(pava_dfrd)
+#' t_d = pava_dfrd[,1]
+#' t = pava_dfrd[,2]
+#' d = pava_dfrd[,3]
+#' pava_dfr(t_d, t, d)
 pava_dfr <- function(time_die,ttot,deaths)
 {
   len=length(ttot)

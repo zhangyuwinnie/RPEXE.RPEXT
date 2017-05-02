@@ -1,28 +1,13 @@
-# A function computing the log likelihood from the gamma distribution under
-#       an order restriction reduction
-# Inputs
-#       structtime   == times under restriction
-#       structttot   == ttots between each time point and the previous
-#                           time point (or 0) under restriction
-#       structdeaths == number of deaths corresponding to struct.ttot
-#       time_die      == all possible times to make the cuts
-#       ttot          == ttots corresponding to time_die
-#       deaths        == dealthes corresponding to ttot
-# Outputs
-#       loglik        == log of the likelihood
-
-#' @title Computing the log likelihood from the gamma distribution
+#' @title Log likelihood from the gamma distribution
 #' 
-#' @description A function computing the log likelihood from the gamma distribution under
-#'       an order restriction reduction
+#' @description A function computing the log likelihood from the gamma distribution under an order restriction reduction
 #'
-#' @param structtime   times under restriction
-#' @param structttot  ttots between each time point and the previous
-#'                           time point (or 0) under restriction
-#' @param structdeaths number of deaths corresponding to struct.ttot
-#' @param time_die all possible times to make the cuts
-#' @param ttot ttots corresponding to time_die
-#' @param deaths dealthes corresponding to ttot
+#' @param structtime change-point times to be used to compute the likelihood value
+#' @param structttot total time on test (ttot) between each time point and the previous time point (or 0) corresponding to structtime
+#' @param structdeaths number of deaths corresponding to structttot
+#' @param time_die all event and censoring times from small to large
+#' @param ttot total time on test corresponding to time_die
+#' @param deaths the number of deaths corresponding to "ttot"
 #' 
 #' @usage gamllik(structtime,structttot,structdeaths,time_die,ttot,deaths)
 #' 
@@ -32,16 +17,22 @@
 #' @export
 #'
 #' @examples
-#' 
+#' data(gamllik_data)
+#' structtime = c(0.08493151, 1.89315068, 2.38630137, 12.70958904, 18.59452055, 23.46027397, 24.70958904, 28.03013699, 47.85479452, 51.07671233)
+#' structttot = c(15.08493, 302.03836,  73.34795, 1090.68493, 345.04110, 199.20000, 41.22740, 99.71507, 369.89589,  82.45479)
+#' structdeaths = c(2, 25, 6, 76, 22, 10, 2, 4, 6, 1)
+#' time_die = gamllik_data[,1]
+#' ttot = gamllik_data[,2]
+#' deaths = gamllik_data[,3]
+#' gamllik(structtime,structttot,structdeaths,time_die,ttot,deaths)
 gamllik=function(structtime,structttot,structdeaths,time_die,ttot,deaths)
 {
-
   #compute the Gamma parameter
   structgamindi=array(0,c(length(structtime),1))
   for(j in 1:length(structtime))
       structgamindi[j]= structttot[j]/structdeaths[j]
   #the likelihood
-  #get the indices of the cut time:
+  #get the indices of the cut times:
   structindi=array(0,c(length(structtime),1))
   for(j in 1:length(structtime))
     for (jj in 1:length(time_die))

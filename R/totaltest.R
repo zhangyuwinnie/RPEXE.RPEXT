@@ -1,21 +1,21 @@
-#Function 'totaltest' computes total time on test
-#Inputs: times and censor (0 = censored; 1 = uncensored)
-#Return: time_die: times that events occur (in ascending order)
-#        ttot: total time on test at each time point in time_die
-#        deaths: number of death at each time point in time_die
-
-
-#' Computes total time on test
+#' @title total time on test
+#' 
+#' @description Function 'totaltest' computes total-time-on-test.
 #'
-#' @param time 
-#' @param censor 
+#' @param time event/censoring times
+#' @param censor censoring status
 #'
 #' @usage totaltest(time,censor)
 #' @return
-#' time_die
+#' time_die time points where events occur (in ascending order)
+#' ttot total time on test corresponding to each time point in "time_die"
+#' deaths number of death corresponding to each time point in "time_die"
 #' @export
 #'
 #' @examples
+#' t1 <- c(2,3,4,5.5,7,10,12,15)
+#' c1 <- c(0,0,1,0,0,1,0,0)
+#' totaltest(t1,c1)
 totaltest <- function(time,censor)
 {
   #save the data in the orginal structure

@@ -1,10 +1,6 @@
-# Function km plots the kaplan meier curve 
-# Given times and censor (0 = censored; 1 = uncensored)
-# returns x's and y's on kaplan meier curve
-
 #' Plot a Kaplan Meier curve in red
 #'
-#' @description The function...
+#' @description The function plots a Kaplan Meier curve in red
 #' 
 #' @param time time of observed event
 #' @param censor a vector indicating censored or not at the given times, 0 = censored; 1 = uncensored
@@ -12,15 +8,17 @@
 #' 
 #'                 1: don't add censored data to the output curve
 #'
-#' @usage km2(time, censor, plotcens)
+#' @usage km_red(time, censor, plotcens)
 #' @return
 #' A red Kaplan Meier curve
 #' 
 #' @export
 #'
 #' @examples
-#' 
-km2 <- function(time, censor, plotcens){
+#' t1 <- c(2,3,4,5.5,7,10,12,15)
+#' c1 <- c(0,0,1,0,0,1,0,0)
+#' km_red(t1,c1,0)
+km_red <- function(time, censor, plotcens){
   # compute realt and deaths
   tmptime = time
   #cat(tmptime)

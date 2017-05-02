@@ -4,17 +4,29 @@
 \alias{km_combine}
 \title{Comparing two Kaplan Meier curves in one plot}
 \usage{
-km_combine(x1, x2)
+km_combine(x1, x2, pos = 0)
 }
 \arguments{
-\item{x1}{}
+\item{x1}{Nx2 data matrix,first columen represents survival time of the i-th subject, second column represents censored flag (0 if not censored, 1 if censored)}
 
-\item{x2}{}
+\item{x2}{Nx2 data matrix,first columen represents survival time of the i-th subject, second column represents censored flag (0 if not censored, 1 if censored)}
+
+\item{pos}{The position of the legend. Can be 0 or 1. The legend will be 
+on the topright if set to 0. The legend will be on the bottomleft if set to 1. Default is 0.}
 }
 \value{
 A combined Kaplan Meier curve
 }
 \description{
-The function...
+The function compares two Kaplan Meier curves in one plot
 }
-
+\examples{
+t1 <- c(2,3,4,5.5,7,10,12,15)
+c1 <- c(0,0,1,0,0,1,0,0)
+t2 <- c(1,3,5,4,8,10,9,11)
+c2 <- c(0,0,0,0,1,0,0,0)
+x1<-cbind(t1,c1)
+x2<-cbind(t2,c2)
+km_combine(x1,x2)
+km_combine(x1,x2,pos=1)
+}

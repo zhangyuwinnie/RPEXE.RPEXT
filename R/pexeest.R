@@ -1,29 +1,29 @@
-# a function produces the the quantile estimate at tx, 
-# when a piecewise exponential distribution is fitted to 
-# (times,cens) cens = 0 for censored, cens = 1 for uncensored.
-# the change point is tchange
-# lamest is the estimated parameters
-
-#' pexeest
+#' @title RPEXE estimate given change-points
 #' 
-#' a function produces the the quantile estimate at tx, 
-#' when a piecewise exponential distribution is fitted to 
-#' (times,cens) cens = 0 for censored, cens = 1 for uncensored.
-#'
-#' @param times 
-#' @param cens 
-#' @param tchange 
-#' @param tx 
+#' @description This function estimates the survival probability at tx when a piecewise 
+#' exponential distribution is fitted to (times,cens) cens = 0 for censored, cens = 1 for uncensored.
+#' the change point is tchange and lamest is the estimated parameters
+#' 
+#' @param times All the event/censoring times used to fit the model
+#' @param cens censoring status used to fit the model
+#' @param tchange Change-points
+#' @param tx Time points to estimate the survival probability
 #' 
 #' @usage pexeest(times, cens, tchange, tx)
 #'
 #' @return
-#' quan
-#' lamest
+#' quan survival probability
+#' lamest Lambda estimates for time periods divided by the change-points
 #' 
 #' @export
 #'
 #' @examples
+#' data(pexeest_times_censoring)
+#' data(t100)
+#' times = pexeest_times_censoring[,1]
+#' cens = pexeest_times_censoring[,2]
+#' pexeest(times, cens, 28.03014, t100)
+#' 
 pexeest <- function(times, cens, tchange, tx){
   
   quan = vector()

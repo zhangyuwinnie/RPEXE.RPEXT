@@ -1,25 +1,23 @@
-# Function km plots the kaplan meier curve 
-# Given times and censor (0 = censored; 1 = uncensored)
-# returns x's and y's on kaplan meier curve
-
-#' Plot a Kaplan Meier curve in black solid line
+#' @title Kaplan-Meier curve
+#' 
+#' @description This function plots the Kaplan-Meier curve without returning outputs
 #'
-#' @description The function...
-#' 
-#' @param time time of observed event
-#' @param censor a vector indicating censored or not at the given times, 0 = censored; 1 = uncensored
-#' @param plotcens 0: add censored data to the output curve
-#' 
-#'                 1: don't add censored data to the output curve
+#' @param time a vector of event or censoring time 
+#' @param censor a vector indicating censoring: 0 = censored; 1 = uncensored
+#' @param plotcens 0: don't add censored data symbol to the output curve
+#'                 1: add censored data symbol to the output curve
 #'
 #' @usage km_blacksolid(time, censor, plotcens)
 #'
 #' @return
-#' A black solid Kaplan Meier curve
+#' Kaplan-Meier curve only
 #' 
 #' @export
 #'
 #' @examples
+#' t1 <- c(2,3,4,5.5,7,10,12,15)
+#' c1 <- c(0,0,1,0,0,1,0,0)
+#' km_blacksolid(t1,c1,0)
 #' 
 km_blacksolid <- function(time, censor, plotcens){
   # compute realt and deaths

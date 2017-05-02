@@ -62,3 +62,75 @@ NULL
 #' @name simple
 #' @usage data(simple)
 NULL
+
+#' Example data for loopcuts_cuttimes
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name loopcuts_cut
+#' @usage data(loopcuts_cut)
+NULL
+
+#' Example data for loopcut_times_censoring
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name loopcuts_t_c
+#' @usage data(loopcuts_t_c)
+NULL
+
+#' Example data for pava
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name pava_dfrd
+#' @usage data(pava_dfrd)
+NULL
+
+#' Example data for pexeest_times_censoring
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name pexeest_times_censoring
+#' @usage data(pexeest_times_censoring)
+NULL
+
+#' Example data for pexeest_tx
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name t100
+#' @usage data(t100)
+NULL
+
+#' Example data for gamllik
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name gamllik_data
+#' @usage data(gamllik_data)
+NULL
+
+#' Example data for loopcut_onestep
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name loopcut_onestep_data
+#' @usage data(loopcut_onestep_data)
+NULL
+
+#' Example data for loopcut_umbrella
+#' 
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name loopcuts_umbrella_cuttimes_mono
+#' @usage data(loopcuts_umbrella_cuttimes_mono)
+NULL

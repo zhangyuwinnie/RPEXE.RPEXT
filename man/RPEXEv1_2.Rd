@@ -2,59 +2,57 @@
 % Please edit documentation in R/RPEXEv1_2.R
 \name{RPEXEv1_2}
 \alias{RPEXEv1_2}
-\title{RPEXE}
+\title{RPEXE main function}
 \usage{
-RPEXEv1_2(eventtime,censor,cuttime, trend,criticalps)
+RPEXEv1_2(times,censoring,cuttimes=NULL, monotone=0, criticalp=-1, pos = 0)
 }
 \arguments{
-\item{eventtime}{A sequence of times where the events occur}
+\item{times}{A sequence of times where the events occur}
 
-\item{censor}{A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)}
+\item{censoring}{A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)}
 
-\item{cuttime}{A vector of unique, sorted, possible times to make the cuts. Default is sorted (from small to
-large) event times
-Default = 'EventTime'}
+\item{cuttimes}{A vector of unique, sorted, possible times to make the cuts. When it's set to NULL, it's the Default value, 
+which is sorted event times from small to large.}
 
-\item{trend}{An input having indicating the monotonicity assumption
--- 0: no monotonic assumption
-
+\item{monotone}{An input having indicating the monotonicity assumption
+-- 0: no monotonic assumption (default)
 -- 1: failure rate is decreasing over time
-
 -- 2: failure rate is increasing over time
-
 -- 3: monotonic failure rate
-
 -- 4: failure rate is increasing and then decreasing
-
 -- 5: failure rate is decreasing and then increasing
-
 -- 6: failure rate is increasing and then decreasing with
       the peak removed first
-      
 -- 7: failure rate is decreasing and then increasing with
-      the peak removed first
-      
-Default == 0}
+      the peak removed first}
 
-\item{criticalps}{The critical (naive) p-value cutoff where all p-values 
+\item{criticalp}{The critical (naive) p-value cutoff where all p-values 
 in the backward elimination that are lower than this 
-will be regarded as being significant. The prediction of 
-the survival probability will be made on 100 equally
-spaced time points within the range of the event times 
-based on the piecewise exponential estimate determined by 
-all the changepoints. 
+will be regarded as being significant. For example, at type I error rate 0.05, 
+the critical p-value was 0.004 in the real example of Han et al. (2014).
 Default == -1 (equivalent to NA).}
+
+\item{pos}{The position of the legend. Can be 0 or 1. The legend will be 
+on the topright if set to 0. The legend will be on the bottomleft if set to 1. Default is 0.}
 }
 \value{
-times: times to make the cuts
-pvalues: pvalues correspond to the times
-times_c: critical times to make the cuts
-pvalues_c: critical p-values that are smaller than the 
+times: event/censoring times taking out from the backward elimination
+pvalues: p-values corresponding to "times" 
+times_c: significant change-points
+pvalues_c: critical p-values that are smaller than the critical p-value 
 trend: trend information
 struct:  structure information for multiple order restrictions
-changet:  change point in time for umbrella alternatives.
+changet:  change-point time of trend for umbrella alternatives.
 }
 \description{
-RPEXE
+This is the RPEXE main function taking inputs including time, censoring, 
+change-point candidates, order restriction, criticl value, and display position. This function 
+produces the RPEXE estimate. The prediction of the survival probability will be made on 100 equally
+spaced time points within the range of the event times based on the piecewise exponential 
+estimate determined by all the changepoints.
 }
-
+\examples{
+t1 <- c(2,3,4,5.5,7,10,12,15)
+c1 <- c(0,0,1,0,0,1,0,0)
+RPEXEv1_2(t1, c1, monotone = 1,criticalp=0.05, pos = 0)
+}

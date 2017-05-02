@@ -1,17 +1,20 @@
 Package: RPEXE.RPEXT
-Title: What the Package Does (one line, title case)
-Version: 0.1.0
-Author: Gang Han <ghan@sph.tamhsc.edu>
+Title: This reduced piecewise exponential survival software implements the likelihood ratio test procedure in Han, Schell, and Kim (2009)
+Version: 0.0.1
+Authors@R: c(person("Gang", "Han", role = c("aut", "cre"),
+                     email = "ghan@sph.tamhsc.edu"),
+              person("Yu", "Zhang", role = "aut"))
+Author: Gang Han [aut, cre],
+  Yu Zhang [aut]
 Maintainer: Gang Han <ghan@sph.tamhsc.edu>
-Description: What the package does (one paragraph).
+Description: This reduced piecewise exponential survival software implements the likelihood ratio test procedure in Han, Schell, and Kim (2009). Inputs to the program can be either times when events/censoring occur or the vectors of total time on test and the number of events. Outputs of the programs are times of events and the corresponding p- values. The order of times and p-values is determined by a backward elimination procedure. Details about the model and implementation are given in Han, Schell, and Kim (2009). This program can run in R version 12 and above.
 Depends:
     R (>= 3.2.2)
-License: GPL-2
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
-Imports: stats, utils, methods, graphics, grDevices, datasets
-Suggests: testthat,
+RoxygenNote: 6.0.1.9000
+Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr

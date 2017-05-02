@@ -1,51 +1,35 @@
-#Using the umbrella alternative to merge certain entries to make
-#    the sequence of ttot/deaths to increase then decrease
-#    or to decrease then increase
-#   (Note that the pava function makes it non decreasing.
-#    This function directly uses function pava().)
-#
-#Input:
-#       time_die == a sequence of times where deaths happened.
-#       ttot     == the total time on test between each time point
-#                     and the previous time point (or 0).
-#      deaths   == the number of deaths at each time point.
-#       indi     == an indicator
-#                indi == 0: monotonic failure rate (either decrease ...
-#                           or increase)
-#                indi == 1: denoting the failure rate increase then
-#                           decrease
-#                indi == 2: denoting the failure rate decrease then
-#                           increase
-# Output:
-#       time2    == the merged time_die
-#       struct   == a structure saves the partition information
-#       label    == a note about how the failure rate varies
-#       indx     == the position where the change point value is
-
-#' umbrella
+#' @title Umbrella alternative.
 #' 
-#' Using the umbrella alternative to merge certain entries to make
-#'    the sequence of ttot/deaths to increase then decrease
-# '   or to decrease then increase
+#' @description Using the umbrella alternative to merge certain entries to make 
+#' the sequence of ttot/deaths to increase then decrease or to decrease then increase. 
+#' Note that the pava function imposes non-decreasing or non-increasing order. 
+#' This function directly uses function pava().
 #'
 #' @param time_die a sequence of times where deaths happened.
 #' @param ttot the total time on test between each time point
 #'                     and the previous time point (or 0).
 #' @param deaths the number of deaths at each time point.
 #' @param indi an indicator
-#' 
-#'                indi = 0: monotonic failure rate (either decrease or increase)
-#'                
-#'                indi = 1: denoting the failure rate increase then decrease
-#'                
-#'                indi = 2: denoting the failure rate decrease then
-#'                           increase
+#'                indi == 0: monotonic failure rate (either decrease or increase)
+#'                indi == 1: denoting the failure rate increase then decrease
+#'                indi == 2: denoting the failure rate decrease then increase
 #'
 #' @usage umbrella(time_die,ttot,deaths,indi)
+#' 
 #' @return
+#' time2  == the merged time_die after the umbrealla alternative order restriction;
+#' struct  == a structure saves the partition information;
+#' label  == a note about how the failure rate varies;
+#' indx   == the position where the change point value is.
+#' 
 #' @export
 #'
 #' @examples
+#' data(pava_dfrd)
+#' t_d = pava_dfrd[,1]
+#' t = pava_dfrd[,2]
+#' d = pava_dfrd[,3]
+#' umbrella(t_d, t, d, 2)
 umbrella <- function(time_die,ttot,deaths,indi)
 {
   n=length(time_die)

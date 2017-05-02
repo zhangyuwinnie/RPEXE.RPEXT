@@ -2,23 +2,29 @@
 % Please edit documentation in R/pava_dfr.R
 \name{pava_dfr}
 \alias{pava_dfr}
-\title{Pava_dfr}
+\title{PAVA order restriction under decreasing failure rate (DFR)}
 \usage{
 pava_dfr(time_die,ttot,deaths)
 }
 \arguments{
-\item{time_die}{}
+\item{time_die}{event times}
 
-\item{ttot}{}
+\item{ttot}{the total time on test (ttot) corresponding to the event times}
 
-\item{deaths}{}
+\item{deaths}{the number of deaths at each event time}
 }
 \value{
-time2: the merged time_die
-ttot2: the merged ttot
-deaths2 the merged deaths
+time2: the event times after PAVA
+ttot2: the corresponding ttot
+deaths2 the corresponding number of deaths
 }
 \description{
-Merge certain entries to make the sequence of ttot to be non decreasing
+This function imposes the PAVA DFR order restriction by eliminating change-points violating the restriction
 }
-
+\examples{
+data(pava_dfrd)
+t_d = pava_dfrd[,1]
+t = pava_dfrd[,2]
+d = pava_dfrd[,3]
+pava_dfr(t_d, t, d)
+}

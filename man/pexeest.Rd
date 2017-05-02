@@ -2,26 +2,33 @@
 % Please edit documentation in R/pexeest.R
 \name{pexeest}
 \alias{pexeest}
-\title{pexeest}
+\title{RPEXE estimate given change-points}
 \usage{
 pexeest(times, cens, tchange, tx)
 }
 \arguments{
-\item{times}{}
+\item{times}{All the event/censoring times used to fit the model}
 
-\item{cens}{}
+\item{cens}{censoring status used to fit the model}
 
-\item{tchange}{}
+\item{tchange}{Change-points}
 
-\item{tx}{}
+\item{tx}{Time points to estimate the survival probability}
 }
 \value{
-quan
-lamest
+quan survival probability
+lamest Lambda estimates for time periods divided by the change-points
 }
 \description{
-a function produces the the quantile estimate at tx, 
-when a piecewise exponential distribution is fitted to 
-(times,cens) cens = 0 for censored, cens = 1 for uncensored.
+This function estimates the survival probability at tx when a piecewise 
+exponential distribution is fitted to (times,cens) cens = 0 for censored, cens = 1 for uncensored.
+the change point is tchange and lamest is the estimated parameters
 }
+\examples{
+data(pexeest_times_censoring)
+data(t100)
+times = pexeest_times_censoring[,1]
+cens = pexeest_times_censoring[,2]
+pexeest(times, cens, 28.03014, t100)
 
+}

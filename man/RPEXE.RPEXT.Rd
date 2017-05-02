@@ -20,4 +20,3 @@ can run in R version 12 and above.
 \references{
 Han, G., Schell, M. J., and Kim, J. (2009) Improved survival modeling using a piece- wise exponential approach
 }
-

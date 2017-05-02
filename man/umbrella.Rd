@@ -2,7 +2,7 @@
 % Please edit documentation in R/umbrella.R
 \name{umbrella}
 \alias{umbrella}
-\title{umbrella}
+\title{Umbrella alternative.}
 \usage{
 umbrella(time_die,ttot,deaths,indi)
 }
@@ -15,16 +15,26 @@ and the previous time point (or 0).}
 \item{deaths}{the number of deaths at each time point.}
 
 \item{indi}{an indicator
-
-               indi = 0: monotonic failure rate (either decrease or increase)
-               
-               indi = 1: denoting the failure rate increase then decrease
-               
-               indi = 2: denoting the failure rate decrease then
-                          increase}
+indi == 0: monotonic failure rate (either decrease or increase)
+indi == 1: denoting the failure rate increase then decrease
+indi == 2: denoting the failure rate decrease then increase}
+}
+\value{
+time2  == the merged time_die after the umbrealla alternative order restriction;
+struct  == a structure saves the partition information;
+label  == a note about how the failure rate varies;
+indx   == the position where the change point value is.
 }
 \description{
-Using the umbrella alternative to merge certain entries to make
-   the sequence of ttot/deaths to increase then decrease
+Using the umbrella alternative to merge certain entries to make 
+the sequence of ttot/deaths to increase then decrease or to decrease then increase. 
+Note that the pava function imposes non-decreasing or non-increasing order. 
+This function directly uses function pava().
 }
-
+\examples{
+data(pava_dfrd)
+t_d = pava_dfrd[,1]
+t = pava_dfrd[,2]
+d = pava_dfrd[,3]
+umbrella(t_d, t, d, 2)
+}

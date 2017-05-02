@@ -2,7 +2,7 @@
 % Please edit documentation in R/exact_pvalue.R
 \name{exact_pvalue}
 \alias{exact_pvalue}
-\title{Compute the exact P value from the likelihood ratio test}
+\title{P-value for the two exponential comparison in Han et al.(2012)}
 \usage{
 exact_pvalue(ttot1,ttot2,dea1,dea2,mono)
 }
@@ -16,16 +16,16 @@ exact_pvalue(ttot1,ttot2,dea1,dea2,mono)
 \item{dea2}{number of death 2}
 
 \item{mono}{0: 2-sided hypothesis: H0: lam1 is equal to lam2; H1: lam1 is not equal to lam2
-
-            1: 1-sided hypothesis: H0: lam1 is greater than or equal to lam2; H1: lam1 is less than lam2
-            
-            2: 1-sided hypothesis: H0: lam1 is less than or equal to lam2; H1: lam1 is greater than lam2}
+1: 1-sided hypothesis: H0: lam1 is greater than or equal to lam2; H1: lam1 is less than lam2
+2: 1-sided hypothesis: H0: lam1 is less than or equal to lam2; H1: lam1 is greater than lam2}
 }
 \value{
-a2
-pval
+a2: Beta distribution quantile computed using bisec.R
+pval: p-value
 }
 \description{
-The function...
+This function computes the exact p-value from the likelihood ratio test
 }
-
+\examples{
+exact_pvalue(1, 302.04, 2, 25, 1)
+}

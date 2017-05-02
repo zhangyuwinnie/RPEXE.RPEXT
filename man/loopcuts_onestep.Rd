@@ -2,7 +2,7 @@
 % Please edit documentation in R/loopcuts_onestep.R
 \name{loopcuts_onestep}
 \alias{loopcuts_onestep}
-\title{Loopcuts_onestep}
+\title{Change-point p-values at given time points}
 \usage{
 loopcuts_onestep(time,censor,cuttimes,mono)
 }
@@ -14,18 +14,19 @@ loopcuts_onestep(time,censor,cuttimes,mono)
 \item{cuttimes}{unique, sorted, possible times to make the cuts, including 0 and the ending time}
 
 \item{mono}{0: 2-sided hypothesis: H0: lam1 is equal to lam2; H1: lam1 is not equal to lam2
-
-            1: 1-sided hypothesis: H0: lam1 is greater than or equal to lam2; H1: lam1 is less than lam2
-            
-            2: 1-sided hypothesis: H0: lam1 is less than or equal to lam2; H1: lam1 is greater than lam2}
+1: 1-sided hypothesis: H0: lam1 is greater than or equal to lam2; H1: lam1 is less than lam2
+2: 1-sided hypothesis: H0: lam1 is less than or equal to lam2; H1: lam1 is greater than lam2}
 }
 \value{
-the times where the cuts shall be made
-
-the p values for deleting each cutting times
+P-values at for all time points in "time"
 }
 \description{
-The function uses a loop format to find out the times to make the cuts
-from large pvalues to small pvalues and the lambdas in between
+This function computes the p-values at the current time points in input "time"
 }
+\examples{
+data(loopcuts_t_c)
+time = loopcuts_t_c[,1]
+censor = loopcuts_t_c[,2]
+loopcuts_onestep(time, censor, 28.03013699, 1)
 
+}

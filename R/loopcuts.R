@@ -1,25 +1,6 @@
-#using a loop format to find out the times to make the cuts
-#from large pvalues to small pvalues and the lambdas in between
-#
-#Input:
-#        time: A sequence of time
-#        censor: and censor (0=censored and 1=not censored)
-#        cuttimes: unique, sorted, possible times to make the cuts,
-#             including 0 and the ending time
-#       mono: indicate the type of the test
-#            mono == 0: 2-sided hypothesis: H0:lam1=lam2; H1:lam1 \ne lam2
-#                 == 1: 1-sides hypothesis: H0:lam1>=lam2; H1:lam1 < lam2
-#                         decreasing failure rate constraint
-#                 == 2: 1-sides hypothesis: H0:lam1<=lam2; H1:lam1 > lam2
-#                         increasing failure rate constraint
-#Output:
-#        ts: the times where the cuts shall be made
-#        pvalues: the p values for deleting each cutting times
-
-#' Loopcuts
-#'
-#' The function uses a loop format to find out the times to make the cuts
-#' from large pvalues to small pvalues and the lambdas in between
+#' @title Change-point p-values with backward elimination 
+#' 
+#' @description A function that iterates to compute the p-values from the backward elimination procedure (Han et al. 2014)
 #' 
 #' @usage loopcuts(time,censor,cuttimes,mono)
 #' 
@@ -27,19 +8,18 @@
 #' @param censor a vector indicating censored or not at the given times, 0 = censored; 1 = uncensored
 #' @param cuttimes unique, sorted, possible times to make the cuts, including 0 and the ending time
 #' @param mono 0: 2-sided hypothesis: H0: lam1 is equal to lam2; H1: lam1 is not equal to lam2
-#' 
 #'             1: 1-sided hypothesis: H0: lam1 is greater than or equal to lam2; H1: lam1 is less than lam2
-#'             
 #'             2: 1-sided hypothesis: H0: lam1 is less than or equal to lam2; H1: lam1 is greater than lam2
-
 #'
-#' @return
-#' the times where the cuts shall be made
-#' 
-#' the p values for deleting each cutting times
+#' @return the times in the backward elimination procedure and the corresponding p-values for each change-point in the iteration
 #' @export
 #'
 #' @examples
+#' data(loopcuts_t_c)
+#' data(loopcuts_cut)
+#' time = loopcuts_t_c[,1]
+#' censor = loopcuts_t_c[,2]
+#' loopcuts(time, censor, loopcuts_cut, 1)
 loopcuts <- function(time,censor,cuttimes,mono)
 {
   #Sort cuttimes and find cutlen

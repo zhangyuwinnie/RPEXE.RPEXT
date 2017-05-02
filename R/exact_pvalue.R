@@ -1,42 +1,25 @@
-#Compute the exact P value from the likelihood ratio test
-#Input:
-#       ttot1, ttot2 = total time on test 1 and 2
-#       dea1, dea2   = number of death 1 and 2
-#       mono: indicate the type of the test
-#           mono == 0: 2-sided hypothesis: H0:lam1=lam2; H1:lam1 \ne lam2
-#                == 1: 1-sided hypothesis: H0:lam1>=lam2; H1:lam1 < lam2
-#                == 2: 1-sided hypothesis: H0:lam1<=lam2; H1:lam1 > lam2
-# Output:
-#       pval         = the exact Pvalue for testing H0: lambda1 = lambda2
-# Assumption:
-#       ttot1 and ttot2 are from Gamma(dea1,lambda1) and
-#       Gamma(dea2,lambda2)
-# Compute the test statistic, delta = (ttot1/(ttot1+ttot2))^dea1*...
-#                                     (ttot2/(ttot1+ttot2))^dea2;
-
-#' @title Compute the exact P value from the likelihood ratio test
+#' @title P-value for the two exponential comparison in Han et al.(2012)
 #' 
-#' @description The function...
+#' @description This function computes the exact p-value from the likelihood ratio test
 #'
 #' @param ttot1 total time on test 1
 #' @param ttot2 total time on test 2
 #' @param dea1 number of death 1
 #' @param dea2 number of death 2
 #' @param mono 0: 2-sided hypothesis: H0: lam1 is equal to lam2; H1: lam1 is not equal to lam2
-#' 
 #'             1: 1-sided hypothesis: H0: lam1 is greater than or equal to lam2; H1: lam1 is less than lam2
-#'             
 #'             2: 1-sided hypothesis: H0: lam1 is less than or equal to lam2; H1: lam1 is greater than lam2
 #'
 #' @usage exact_pvalue(ttot1,ttot2,dea1,dea2,mono)
 #' 
 #' @return
-#' a2
-#' pval
+#' a2: Beta distribution quantile computed using bisec.R
+#' pval: p-value
 #' 
 #' @export
 #'
 #' @examples
+#' exact_pvalue(1, 302.04, 2, 25, 1)
 exact_pvalue <- function(ttot1,ttot2,dea1,dea2,mono)
 {
 

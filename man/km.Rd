@@ -2,23 +2,27 @@
 % Please edit documentation in R/km.R
 \name{km}
 \alias{km}
-\title{Plot a Kaplan Meier curve}
+\title{Kaplan-Meier curve}
 \usage{
 km(time, censor, plotcens)
 }
 \arguments{
-\item{time}{time of observed event}
+\item{time}{a vector of event or censoring time}
 
-\item{censor}{a vector indicating censored or not at the given times, 0 = censored; 1 = uncensored}
+\item{censor}{a vector indicating censoring: 0 = censored; 1 = uncensored}
 
-\item{plotcens}{0: add censored data to the output curve
-
-                1: don't add censored data to the output curve}
+\item{plotcens}{0: don't add censored data symbol to the output curve
+1: add censored data symbol to the output curve}
 }
 \value{
-A Kaplan Meier curve
+Kaplan-Meier curve only
 }
 \description{
-The function...
+This function plots the Kaplan-Meier curve without returning outputs
 }
+\examples{
+t1 <- c(2,3,4,5.5,7,10,12,15)
+c1 <- c(0,0,1,0,0,1,0,0)
+km(t1,c1,0)
 
+}

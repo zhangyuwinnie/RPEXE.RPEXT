@@ -1,29 +1,28 @@
-# Function km plots the kaplan meier curve 
-# Given times and censor (0 = censored; 1 = uncensored)
-# returns x's and y's on kaplan meier curve
-
-#' Plot a Kaplan Meier curve
+#' @title Kaplan-Meier curve
 #' 
-#' @description The function...
+#' @description This function plots the Kaplan-Meier curve without returning outputs
 #'
-#' @param time time of observed event
-#' @param censor a vector indicating censored or not at the given times, 0 = censored; 1 = uncensored
-#' @param plotcens 0: add censored data to the output curve
-#' 
-#'                 1: don't add censored data to the output curve
+#' @param time a vector of event or censoring time 
+#' @param censor a vector indicating censoring: 0 = censored; 1 = uncensored
+#' @param plotcens 0: don't add censored data symbol to the output curve
+#'                 1: add censored data symbol to the output curve
 #'
 #' @usage km(time, censor, plotcens)
 #'
 #' @return
-#' A Kaplan Meier curve
+#' Kaplan-Meier curve only
 #' 
 #' @export
 #'
 #' @examples
+#' t1 <- c(2,3,4,5.5,7,10,12,15)
+#' c1 <- c(0,0,1,0,0,1,0,0)
+#' km(t1,c1,0)
+#' 
 km <- function(time, censor, plotcens){
   # compute realt and deaths
   tmptime = time
-  #cat(tmptime)
+  # cat(tmptime)
   for (i in 1:length(censor))
   {
     if (censor[i] == 0)
@@ -39,7 +38,6 @@ km <- function(time, censor, plotcens){
   # time:   all the times, including censor and death,
   # censor: a vector indicating censored or not at the given times in time
   #         censored: censor() = 0; noncensored: censor() =1;
-  
   # output #
   # the label on the kaplan-mejer curve, which is corresponding to each
   # point on realt and the plot of the kaplan-meier curve.
@@ -110,6 +108,7 @@ km <- function(time, censor, plotcens){
   ypartl              = lowery[1:ldea]
   ypartu              = uppery[2:ldea+1]
   ypart
+  
   # save the data in xpart and ypart
   xpart[1] = upperx[1]
   xpart[2] = upperx[2]
@@ -155,6 +154,4 @@ km <- function(time, censor, plotcens){
         }
     }
   }
-
-  
 }

@@ -2,19 +2,25 @@
 % Please edit documentation in R/totaltest.R
 \name{totaltest}
 \alias{totaltest}
-\title{Computes total time on test}
+\title{total time on test}
 \usage{
 totaltest(time,censor)
 }
 \arguments{
-\item{time}{}
+\item{time}{event/censoring times}
 
-\item{censor}{}
+\item{censor}{censoring status}
 }
 \value{
-time_die
+time_die time points where events occur (in ascending order)
+ttot total time on test corresponding to each time point in "time_die"
+deaths number of death corresponding to each time point in "time_die"
 }
 \description{
-Computes total time on test
+Function 'totaltest' computes total-time-on-test.
 }
-
+\examples{
+t1 <- c(2,3,4,5.5,7,10,12,15)
+c1 <- c(0,0,1,0,0,1,0,0)
+totaltest(t1,c1)
+}

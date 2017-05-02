@@ -10,8 +10,8 @@ times = simple[,2]
 
 cens  = simple[,1]
 
-test2.decrease = RPEXEv1_2(times,cens,trend = 1,criticalps=0.05)
-test2.umbrella = RPEXEv1_2(times,cens,trend = 4,criticalps=0.05)
+test2.decrease = RPEXEv1_2(times,cens,monotone = 3,criticalp = 0.05)
+test2.umbrella = RPEXEv1_2(times,cens,monotone = 4,criticalp = 0.05)
 
 # Results:  
 test2.decrease$times

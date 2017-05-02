@@ -1,10 +1,6 @@
-# Function km plots the kaplan meier curve 
-# Given times and censor (0 = censored; 1 = uncensored)
-# returns x's and y's on kaplan meier curve
-
 #' Plot a Kaplan Meier curve in red solid line
 #' 
-#' @description The function...
+#' @description The function plots a Kaplan Meier curve in red solid line
 #'  
 #' @param time time of observed event
 #' @param censor a vector indicating censored or not at the given times, 0 = censored; 1 = uncensored
@@ -18,7 +14,9 @@
 #' @export
 #'
 #' @examples
-#'
+#' t1 <- c(2,3,4,5.5,7,10,12,15)
+#' c1 <- c(0,0,1,0,0,1,0,0)
+#' km_redsolid(t1,c1,0)
 km_redsolid <- function(time, censor, plotcens){
   # compute realt and deaths
   tmptime = time

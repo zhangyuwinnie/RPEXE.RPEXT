@@ -1,0 +1,13 @@
+---
+title: "example"
+author: "Yu Zhang"
+date: "April 24, 2017"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{RPEXE.RPEXT}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+Reference example: adsfs^[University of Hohenheim, Institute of Plant Breeding, Seed Science and Population Genetics, Stuttgart]

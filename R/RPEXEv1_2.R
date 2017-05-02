@@ -1,127 +1,67 @@
-############################################################
-#Input:
-# 'EventTime' == A sequence of times where the events occur
-# 'Censor'    == A sequence of dichotomous values indicating
-#                censored or not (0=censored and 1=not censored)
-# 'CutTimes'  == A vector of unique, sorted, possible times to
-#                make the cuts. Default is sorted (from small to
-#                large) event times
-#                Default == 'EventTime'
-# 'Trend'     == An input having indicating the monotonicity assumption
-#                -- 0: no monotonic assumption
-#                -- 1: failure rate is decreasing over time
-#                -- 2: failure rate is increasing over time
-#                -- 3: monotonic failure rate
-#                -- 4: failure rate is increasing and then decreasing
-#                -- 5: failure rate is decreasing and then increasing
-#                -- 6: failure rate is increasing and then decreasing with
-#                      the peak removed first
-#                -- 7: failure rate is decreasing and then increasing with
-#                      the peak removed first
-#                Default == 0
-# 'Criticalp'  == The critical (naive) p-value cutoff where all p-values 
-#                in the backward elimination that are lower than this 
-#                will be regarded as being significant. The prediction of 
-#                the survival probability will be made on 100 equally
-#                spaced time points within the range of the event times 
-#                based on the piecewise exponential estimate determined by 
-#                all the changepoints. 
-#                Default == -1 (equivalent to NA).
-# Output:
-# pexeout.times   ==  times to make the cuts
-# pexeout.pvalues ==  pvalues correspond to the times
-# pexeout.times_c ==  critical times to make the cuts
-# pexeout.pvalues_c ==  critical p-values that are smaller than the 
-# pexeout.trend   ==  trend information
-# pexeout.struct  ==  structure information for multiple order restrictions
-# pexeout.changet ==  change point in time for umbrella alternatives.
-#############################################################################
-
-#' RPEXE
+#' @title RPEXE main function
+#' 
+#' @description This is the RPEXE main function taking inputs including time, censoring, 
+#' change-point candidates, order restriction, criticl value, and display position. This function 
+#' produces the RPEXE estimate. The prediction of the survival probability will be made on 100 equally
+#' spaced time points within the range of the event times based on the piecewise exponential 
+#' estimate determined by all the changepoints. 
 #'
-#' @description  RPEXE
-#'
-#' @param eventtime A sequence of times where the events occur
-#' @param censor A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)
-#' @param cuttime A vector of unique, sorted, possible times to make the cuts. Default is sorted (from small to
-#'                large) event times
-#'                Default = 'EventTime'
-#' @param trend An input having indicating the monotonicity assumption
-#'                -- 0: no monotonic assumption
-#'                
+#' @param times A sequence of times where the events occur
+#' @param censoring A sequence of dichotomous values indicating censored or not (0=censored and 1=not censored)
+#' @param cuttimes A vector of unique, sorted, possible times to make the cuts. When it's set to NULL, it's the Default value, 
+#'                 which is sorted event times from small to large. 
+#' @param monotone An input having indicating the monotonicity assumption
+#'                -- 0: no monotonic assumption (default)
 #'                -- 1: failure rate is decreasing over time
-#'                
 #'                -- 2: failure rate is increasing over time
-#'                
 #'                -- 3: monotonic failure rate
-#'                
 #'                -- 4: failure rate is increasing and then decreasing
-#'                
 #'                -- 5: failure rate is decreasing and then increasing
-#'                
 #'                -- 6: failure rate is increasing and then decreasing with
 #'                      the peak removed first
-#'                      
 #'                -- 7: failure rate is decreasing and then increasing with
 #'                      the peak removed first
-#'                      
-#'                Default == 0
-#' @param criticalps  The critical (naive) p-value cutoff where all p-values 
+#'                                      
+#' @param criticalp  The critical (naive) p-value cutoff where all p-values 
 #'                in the backward elimination that are lower than this 
-#'                will be regarded as being significant. The prediction of 
-#'                the survival probability will be made on 100 equally
-#'                spaced time points within the range of the event times 
-#'                based on the piecewise exponential estimate determined by 
-#'                all the changepoints. 
+#'                will be regarded as being significant. For example, at type I error rate 0.05, 
+#'                the critical p-value was 0.004 in the real example of Han et al. (2014).
 #'                Default == -1 (equivalent to NA).
+#' @param pos The position of the legend. Can be 0 or 1. The legend will be 
+#'    on the topright if set to 0. The legend will be on the bottomleft if set to 1. Default is 0.
 #'
-#' @usage RPEXEv1_2(eventtime,censor,cuttime, trend,criticalps)
+#' @usage RPEXEv1_2(times,censoring,cuttimes=NULL, monotone=0, criticalp=-1, pos = 0)
 #'
 #' @return
-#' times: times to make the cuts
-#' pvalues: pvalues correspond to the times
-#' times_c: critical times to make the cuts
-#' pvalues_c: critical p-values that are smaller than the 
+#' times: event/censoring times taking out from the backward elimination
+#' pvalues: p-values corresponding to "times" 
+#' times_c: significant change-points
+#' pvalues_c: critical p-values that are smaller than the critical p-value 
 #' trend: trend information
 #' struct:  structure information for multiple order restrictions
-#' changet:  change point in time for umbrella alternatives.
+#' changet:  change-point time of trend for umbrella alternatives.
 #' 
 #' 
 #' @export
 #'
 #' @examples
-RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, criticalps=NULL)
+#' t1 <- c(2,3,4,5.5,7,10,12,15)
+#' c1 <- c(0,0,1,0,0,1,0,0)
+#' RPEXEv1_2(t1, c1, monotone = 1,criticalp=0.05, pos = 0)
+RPEXEv1_2 <- function(times, censoring, cuttimes=NULL, monotone = 0, criticalp=-1, pos = 0)
 {
-
-
-  cuttimes_default = 0
-  monotone_default = 0
-  criticalp_default = 0
+  # initialize the output list
   pexeout=list(times=as.null(),pvalues=as.null(), times_c = as.null(), pvalues_c = as.null(), trend=as.null(),struct=as.null(),changet=as.null(),
                plotdatakme_times=as.null(), plotdatakme_censoring=as.null(), plotdatapexe_t100=as.null(),
                plotdatapexe_pred100=as.null(), plotdatapexe_tchange=as.null(), plotdatapexe_predc=as.null())
   
-
   #reset parameter inputs
-    if (!is.null(eventtime))
-       times = eventtime
-    if (!is.null(censor))
-       censoring= censor
-    if (!is.null(cuttime))
-      {
-       cuttimes    = cuttime
-       cuttimes_default = 1
-       }
-    if (!is.null(trend))
-      {
-       monotone= trend
-       monotone_default   = 1
-      }
-    if (!is.null(criticalps))
-     {
-       criticalp=criticalps
-       criticalp_default = 1
-     }
+    if (!is.null(cuttimes))
+      cuttimes_default = 1
+    else
+      cuttimes_default = 0
+  
+  
   # Compute the time of the death(in increasing order), the total time on
   # test, and the number of deaths corresponding to ttot.
   # These quantities will be used later.
@@ -133,12 +73,8 @@ RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, critic
  
   # Set the default values
   if (cuttimes_default == 0)
-     cuttimes   = time_die[1:(length(time_die)-1)]
-  #print(cuttimes)
-  if (monotone_default == 0)
-     monotone = 0
-  if (criticalp_default == 0)
-     criticalp = -1
+     cuttimes = time_die[1:(length(time_die)-1)]
+
   if (monotone== 0)
      {
      returnva_l=loopcuts(times,censoring,cuttimes,monotone)
@@ -241,19 +177,6 @@ RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, critic
       n=dim(returnva_lu)[2]/2
       ts=returnva_lu[,1:n]
       pvalues=returnva_lu[,(n+1):2*n]
-  #     [time2,struct,label,indx] = umbrella(time_die,ttot,deaths,monotone-3);
-  #     cuttimes_trend  = time2(1:(length(time2)-1));
-  #     cuttimes        = intersect(cuttimes_trend, cuttimes);
-  #     changetime      = time_die(indx);
-  #     indsmall        = find(cuttimes< changetime);
-  #     indlarge        = find(cuttimes>=changetime);
-  #     [ts1,pvalues1]  = loopcuts(times,censoring,cuttimes(indsmall),1);
-  #                         % decreasing Failure Rate
-  #     [ts2,pvalues2]  = loopcuts(times,censoring,cuttimes(indlarge),2);
-  #                         % increasing Failure Rate
-  #     ts              = [ts1;ts2];
-  #     pvalues         = [pvalues1;pvalues2];
-
       pexeout$struct  = struct
       pexeout$changet = changetime
       pexeout$trend   = "Decreasing-increasing failure rate"
@@ -280,19 +203,6 @@ RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, critic
       pexeout$changet = changetime
       pexeout$trend   ="Increasing-decreasing failure rate"
      }
-
-  #     [time2,struct,label,indx] = umbrella(time_die,ttot,deaths,monotone-3);
-  #     cuttimes_trend  = time2(1:(length(time2)-1));
-  #     cuttimes        = intersect(cuttimes_trend, cuttimes);
-  #     changetime      = time_die(indx);
-  #     indsmall        = find(cuttimes< changetime);
-  #     indlarge        = find(cuttimes>changetime);
-  #     cuttimes        = [cuttimes(indsmall);changetime;cuttimes(indlarge)];
-  #     mono            = [2*ones(length(indsmall),1);0;ones(length(indlarge),1)];
-  #     [ts,pvalues]    = loopcuts_umbrella(times,censoring,cuttimes,mono);
-  #     pexeout.struct  = struct;
-  #     pexeout.changet = changetime;
-  #     pexeout.trend   = 'Increasing-decreasing failure rate';
 
   if (monotone == 7) #decreasing then increasing failure rate, no peak
       {
@@ -333,7 +243,7 @@ RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, critic
   # using the change point determined by the naive p-value and overlay 
   # the estimated piecewise exponential estimate with the Kaplan-Meier curve.
   
-  if (criticalp_default == 1)
+  if (criticalp != -1)
   {
     # compute the grid of 100 times that is equally spaced between 0 and the
     # maximum of the event time; 
@@ -454,28 +364,13 @@ RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, critic
      
       points(tchange,predc,pch = 24,lwd = 4,col="red")
     }
-    legend("bottomleft",legend=c("Kaplan-Meier estimate","Exponential estimate"),
+    if (pos == 0)
+      position = "topright"
+    if (pos == 1)
+      position = "bottomleft"
+    legend(position,legend=c("Kaplan-Meier estimate","Exponential estimate"),
            col=c("black", "red"), lty=c(1,2),cex=0.8)
-    
-    # Save the data for makng the
-    # not done
   }
-  
-  #times = pexeout$times 
-  #values = pexeout$pvalues 
-  #times_c =  pexeout$times_c 
-  #pvalues_c =  pexeout$pvalues_c
-  #trend   =  pexeout$trend 
-  #struct  =  pexeout$structure 
-  #changet = pexeout$changet
-  
-  # initialize the output vector
-  #plotdatakme_times = vector()
-  #plotdatakme_censoring = vector()
-  #plotdatapexe_t100 = vector()
-  #plotdatapexe_pred100 = vector()
-  #plotdatapexe_tchange = vector()
-  #plotdatapexe_predc = vector()
   pexeout$plotdatakme_times = times
   pexeout$plotdatakme_censoring = censoring
   pexeout$plotdatapexe_t100 = t100
@@ -485,7 +380,5 @@ RPEXEv1_2 <- function(eventtime=NULL,censor=NULL,cuttime=NULL,trend=NULL, critic
     pexeout$plotdatapexe_tchange = tchange
     pexeout$plotdatapexe_predc = predc
   }
-  #pexeout = list("times" = times, "pvalues"=pvalues, "times_c" =times_c, "pvalues_c" = pvalues_c, "trend" = trend, "struct"=struct, "changet" = changet,  "plotdatakme_times" = plotdatakme_times, "plotdatakme_censoring" = plotdatakme_censoring, "plotdatapexe_t100" = plotdatapexe_t100,
-  #                 "plotdatapexe_pred100" = plotdatapexe_pred100, "plotdatapexe_tchange" = plotdatapexe_tchange, "plotdatapexe_predc" = plotdatapexe_predc)
   return(pexeout)
 }

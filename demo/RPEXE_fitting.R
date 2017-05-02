@@ -18,17 +18,11 @@ armsB_ID = which(group == 2)
 # figure(1)
 km(times[armsA_ID], censor[armsA_ID], 0)
 # figure(2)
-km2(times[armsA_ID], censor[armsA_ID], 1)
+km_red(times[armsA_ID], censor[armsA_ID], 1)
 # figure(3)
 km(times[armsB_ID], censor[armsB_ID], 0)
 # figure(4)
-km2(times[armsB_ID], censor[armsB_ID], 0)
-
-# Plot the KME in the paper
-# figure(5)
-x1 = cbind(times[armsA_ID], censor[armsA_ID])
-x2 = cbind(times[armsB_ID], censor[armsB_ID])
-logrank(x1,x2)
+km_red(times[armsB_ID], censor[armsB_ID], 0)
 
 # The analysis
 # consists of presenting the PFS rates at the two scan times, and
@@ -52,12 +46,12 @@ logrank(x1,x2)
 (0.3276-0.3796)/sqrt(0.3276*(1-0.3276)/53+0.3796*(1-0.3796)/47)
 
 # Fit the rpexe with monotonic order restriction;
-pexeoutA     =  RPEXEv1_2(times[armsA_ID],censor[armsA_ID],trend = 1,criticalps=0.05)
+pexeoutA     =  RPEXEv1_2(times[armsA_ID],censor[armsA_ID], monotone = 1,criticalp = 0.05)
 
-pexeoutB     =  RPEXEv1_2(times[armsB_ID],censor[armsB_ID],trend = 1,criticalps=0.05)
+pexeoutB     =  RPEXEv1_2(times[armsB_ID],censor[armsB_ID], monotone = 1,criticalp = 0.05)
 
 # combined
-pexeout = RPEXEv1_2(times,censor,trend = 1,criticalps=0.05)
+pexeout = RPEXEv1_2(times,censor, monotone = 1,criticalp = 0.05)
 
 # calculate the ttot and n from a), 0-2.777, b), 2.777-8.959, c), 8,959-end;
 #

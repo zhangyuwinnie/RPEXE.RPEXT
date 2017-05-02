@@ -1,24 +1,3 @@
-# One-sided nominal error levels can deviate markedly 
-# from the exact levels when the logrank test or the 
-# generalizations of the Wilcoxon test are applied to 
-# small samples. The errors are generally less serious 
-# for the logrank test with continuity correction; however, 
-#     in unbalanced trials when higher event rates 
-#     are inferred in the smaller group, this test, 
-#     too, can be highly nonconservative. On the other 
-#     hand, the tests are overly conservative when lower
-#     effect rates are inferred in the smaller sample. 
-#     The mere utilization of a sufficiently increased 
-#     continuity correction does not adequately improve 
-#     the small-sample properties of the tests. These 
-#     results confirm the statements of Prentice and Marek (1979) 
-#     who, applying various rank tests to a highly 
-#     unbalanced trial, expressed doubts concerning the 
-#     validity of the significance levels for higher 
-#     event rates in the smaller sample. Methods that 
-#     are not based on the standard normal approximation 
-#     are therefore desirable.
-
 require(RPEXE.RPEXT)
 library(RPEXE.RPEXT)
 
@@ -181,7 +160,7 @@ er_N_valid_prechem_n = intersect(er_N_valid, which(chemo_n_indi==1))
 #   112    36
 train.er_n_pres_p = RPEXEv1_2(bsttime[er_N_train_pres_p],
                               bstcens[er_N_train_pres_p],
-                              trend = 3,criticalps=0.02)
+                              monotone = 3,criticalp=0.02, pos=1)
 
 train.er_n_pres_p$times 
 train.er_n_pres_p$pvalues
@@ -191,7 +170,7 @@ train.er_n_pres_p$pvalues
 # ER- training, res-
 train.er_n_pres_n = RPEXEv1_2(bsttime[er_N_train_pres_n],
                              bstcens[er_N_train_pres_n],
-                             trend = 3,criticalps=0.02)
+                             monotone  = 3,criticalp=0.02, pos=1)
 
 train.er_n_pres_n$times 
 train.er_n_pres_n$pvalues
@@ -199,7 +178,7 @@ train.er_n_pres_n$pvalues
 # ER- validation, res+
 valid.er_n_pres_p = RPEXEv1_2(bsttime[er_N_valid_pres_p],
                               bstcens[er_N_valid_pres_p],
-                              trend = 3,criticalps=0.02)
+                              monotone  = 3,criticalp=0.02, pos=1)
 
 valid.er_n_pres_p$times
 valid.er_n_pres_p$pvalues
@@ -207,7 +186,7 @@ valid.er_n_pres_p$pvalues
 # ER- validation, res-
 valid.er_n_pres_n = RPEXEv1_2(bsttime[er_N_valid_pres_n],
                               bstcens[er_N_valid_pres_n],
-                              trend = 3,criticalps=0.02)
+                              monotone  = 3,criticalp=0.02, pos=1)
 
 valid.er_n_pres_n$times
 valid.er_n_pres_n$pvalues
@@ -215,14 +194,14 @@ valid.er_n_pres_n$pvalues
 # ER all; res+ 
 all.er_n_pres_p = RPEXEv1_2(bsttime[c(er_N_train_pres_p,er_N_valid_pres_p)],
                             bstcens[c(er_N_train_pres_p,er_N_valid_pres_p)],
-                            trend = 3,criticalps=0.02)
+                            monotone = 3,criticalp = 0.02, pos=1)
 all.er_n_pres_p$times
 all.er_n_pres_p$pvalues
 
 # ER all; res- 
 all.er_n_pres_n = RPEXEv1_2(bsttime[c(er_N_train_pres_n,er_N_valid_pres_n)],
                             bstcens[c(er_N_train_pres_n,er_N_valid_pres_n)],
-                            trend = 3,criticalps=0.02)
+                            monotone = 3,criticalp = 0.02, pos=1)
 all.er_n_pres_n$times
 all.er_n_pres_n$pvalues
 
@@ -230,42 +209,42 @@ all.er_n_pres_n$pvalues
 # Train, ER-, chemo+
 train.er_n_prechem_p = RPEXEv1_2(bsttime[c(er_N_train_prechem_p)],
                                  bstcens[c(er_N_train_prechem_p)],
-                                 trend = 3,criticalps=0.02)
+                                 monotone = 3,criticalp = 0.02, pos=1)
 train.er_n_prechem_p$times 
 train.er_n_prechem_p$pvalues
 
 # Train, ER-, chemo-
 train.er_n_prechem_n = RPEXEv1_2(bsttime[c(er_N_train_prechem_n)],
                                 bstcens[c(er_N_train_prechem_n)],
-                                trend = 3,criticalps=0.02)
+                                monotone = 3,criticalp = 0.02, pos=1)
 train.er_n_prechem_n$times 
 train.er_n_prechem_n$pvalues          
 
 # Valid, ER-, chemo+
 valid.er_n_prechem_p = RPEXEv1_2(bsttime[c(er_N_valid_prechem_p)],
                                  bstcens[c(er_N_valid_prechem_p)],
-                                 trend = 3,criticalps=0.02)
+                                 monotone = 3,criticalp = 0.02, pos=1)
 valid.er_n_prechem_p$times 
 valid.er_n_prechem_p$pvalues  
 
 # Valid, ER-, chemo-
 valid.er_n_prechem_n = RPEXEv1_2(bsttime[c(er_N_valid_prechem_n)],
                                  bstcens[c(er_N_valid_prechem_n)],
-                                 trend = 3,criticalps=0.02)
+                                 monotone = 3,criticalp = 0.02, pos=1)
 valid.er_n_prechem_n$times 
 valid.er_n_prechem_n$pvalues   
 
 # ER all; chemo+ 
 all.er_n_prechem_p = RPEXEv1_2(bsttime[c(er_N_train_prechem_p,er_N_valid_prechem_p)],
                                bstcens[c(er_N_train_prechem_p,er_N_valid_prechem_p)],
-                               trend = 3,criticalps=0.02)
+                               monotone = 3,criticalp = 0.02, pos=1)
 all.er_n_prechem_p$times 
 all.er_n_prechem_p$pvalues 
 
 # ER all; chemo- 
 all.er_n_prechem_n = RPEXEv1_2(bsttime[c(er_N_train_prechem_n,er_N_valid_prechem_n)],
                                bstcens[c(er_N_train_prechem_n,er_N_valid_prechem_n)],
-                               trend = 3,criticalps=0.02)
+                               monotone = 3,criticalp = 0.02, pos=1)
 all.er_n_prechem_n$times 
 all.er_n_prechem_n$pvalues 
 
@@ -274,11 +253,11 @@ all.er_n_prechem_n$pvalues
 # Example, DLDA, training, cPR
 train.er_n_pres_p = RPEXEv1_2(bsttime[er_N_train_pres_p],
                               bstcens[er_N_train_pres_p],
-                              trend = 3,criticalps=0.05)
+                              monotone = 3,criticalp = 0.05, pos=1)
 # DLDA, training, RD
 train.er_n_pres_n = RPEXEv1_2(bsttime[er_N_train_pres_n],
                               bstcens[er_N_train_pres_n],
-                              trend = 3,criticalps=0.05)
+                              monotone = 3,criticalp = 0.05, pos=1)
 
 
 # plot the two overlaid Kaplan-Meier curves;
@@ -296,24 +275,8 @@ km_redsolid(time_p, cens_p, cens_indi)
 legend("topright",legend=c("DLDA30 -","DLDA30 +"),col=c("black", "red"), lty=1:1, cex=0.8)
 x1 = cbind(time_p,cens_p)
 x2 = cbind(time_n,cens_n)
-# figure (2)
-logrank(x1,x2)
 
-#
-# LOG-RANK TEST FOR KAPLAN-MEIER SURVIVAL FUNCTIONS 
-# --------------------------------------------------------------------------------------------------------------
-# HAZARD RATE IS AN EXPERIMENTAL FUNCTION!!!!
-# Treatment 1: Hazard rate: 1.4982
-# Treatment 2: Hazard rate: 1.2750
-# Hazard ratio: 1.1750
-# --------------------------------------------------------------------------------------------------------------
-# UL			S.E.		z		p-value (2-tailed test)		alpha
-# --------------------------------------------------------------------------------------------------------------
-# 5.78849			3.96296		1.33448		0.18205				0.050
-# --------------------------------------------------------------------------------------------------------------
-# 		The survival functions are not statistically different
-# 
-#figure(3)
+#figure(2)
 plot(train.er_n_pres_n$plotdatapexe_t100, train.er_n_pres_n$plotdatapexe_pred100, 
      xlab="Time", ylab="Estimated survival functions", type = "s",lty = 2, col = "black",ylim = c(0,1),lwd = 2)
 lines(train.er_n_pres_p$plotdatapexe_t100, train.er_n_pres_p$plotdatapexe_pred100, 
@@ -324,7 +287,7 @@ legend("topright",legend=c('DLDA30 -','DLDA30 +'),col=c("black", "red"), lty=2:2
 
 ##
 # plot DLDA30 training;
-# figure(11)
+# figure(3)
 km_blacksolid(train.er_n_pres_n$plotdatakme_times, 
               train.er_n_pres_n$plotdatakme_censoring, 0)
 km_redsolid(train.er_n_pres_p$plotdatakme_times, 
@@ -340,7 +303,7 @@ legend("bottomleft",legend=c('KME, DLDA30 RD, training','KME, DLDA30 pCR, traini
                              'Significant failure rate change'),col=c("black", "red","black", "red","red"), 
        lty=c(1,1,2,2,NA), pch = c(NA,NA,NA,NA,24), cex=0.8)
 
-# figure(12)
+# figure(4)
 # plot DLDA30 testing;
 km_blacksolid(valid.er_n_pres_n$plotdatakme_times, 
               valid.er_n_pres_n$plotdatakme_censoring, 0)
@@ -357,7 +320,7 @@ legend("bottomleft",legend=c('KME, DLDA30 RD, validation','KME, DLDA30 pCR, vali
                              'Significant failure rate change'),col=c("black", "red","black", "red","red"), 
        lty=c(1,1,2,2,NA), pch = c(NA,NA,NA,NA,24), cex=0.8)
 
-# figure(13);
+# figure(5);
 # plot ACES training;
 km_blacksolid(train.er_n_prechem_n$plotdatakme_times, 
               train.er_n_prechem_n$plotdatakme_censoring, 0)
@@ -374,7 +337,7 @@ legend("bottomleft",legend=c('KME, ACES Insensitive, training','KME, ACES Sensit
                              'Significant failure rate change'),col=c("black", "red","black", "red","red"), 
        lty=c(1,1,2,2,NA), pch = c(NA,NA,NA,NA,24), cex=0.8)
 
-# figure(14);
+# figure(6);
 # plot ACES testing;
 km_blacksolid(valid.er_n_prechem_n$plotdatakme_times, 
               valid.er_n_prechem_n$plotdatakme_censoring, 0)
@@ -391,7 +354,7 @@ legend("bottomleft",legend=c('KME, ACES Insensitive, validation','KME, ACES Sens
                              'Significant failure rate change'),col=c("black", "red","black", "red","red"), 
        lty=c(1,1,2,2,NA), pch = c(NA,NA,NA,NA,24), cex=0.8)
 
-# figure(15);
+# figure(7);
 # plot DLDA30 combined;
 km_blacksolid(all.er_n_pres_n$plotdatakme_times, 
               all.er_n_pres_n$plotdatakme_censoring, 0)
@@ -408,7 +371,7 @@ legend("bottomleft",legend=c('KME, DLDA30 RD, combined','KME, DLDA30 pCR, combin
                              'Significant failure rate change'),col=c("black", "red","black", "red","red"), 
        lty=c(1,1,2,2,NA), pch = c(NA,NA,NA,NA,24), cex=0.8)
 
-# figure(16);
+# figure(8);
 # plot ACES combined;
 km_blacksolid(all.er_n_prechem_n$plotdatakme_times, 
               all.er_n_prechem_n$plotdatakme_censoring, 0)
@@ -425,139 +388,5 @@ legend("bottomleft",legend=c('KME, ACES Insensitive, combined','KME, ACES Sensit
                              'Significant failure rate change'),col=c("black", "red","black", "red","red"), 
        lty=c(1,1,2,2,NA), pch = c(NA,NA,NA,NA,24), cex=0.8)
 
-################################
-## Logrank tests illustration;
-timesn = train.er_n_pres_n$plotdatakme_times
-censn  = 1-train.er_n_pres_n$plotdatakme_censoring
-timesp = train.er_n_pres_p$plotdatakme_times
-censp  = 1-train.er_n_pres_p$plotdatakme_censoring
-x1 = cbind(timesn, censn)
-x2 = cbind(timesp, censp)
-logrank_Yates228(x1,x2)
-# prepare data for sas;
-# data1 = [timesn 1-censn ones(length(timesn),1);timesp 1-censp 2*ones(length(timesp),1)]
 
-# Run the exponential test to compare the failure rate before 
-train.er_n_pres_p$times
-censn = 1-censn
-censp = 1-censp
-indn = which(timesn>=2.7325)
-indp = which(timesp>=2.7325)
-censn[indn] = 0
-censp[indp] = 0
-timesn[indn] = 2.7325
-timesp[indp] = 2.7325
-ttot1 = sum(timesn) 
-d1 = sum(censn)
-ttot2 = sum(timesp) 
-d2 = sum(censp)
-reout=exact_pvalue(ttot1,ttot2,d1,d2,0)
-a2 = reout[1]
-p2 = reout[2]
-# two sided exact test p= 0.4949;
-reout=exact_pvalue(ttot1,ttot2,d1,d2,2)
-a2 = reout[1]
-p2 = reout[2]
-# one-sided test exact p-value 0.4647;
-
-timesn = valid.er_n_pres_n$plotdatakme_times
-censn  = 1-valid.er_n_pres_n$plotdatakme_censoring
-timesp = valid.er_n_pres_p$plotdatakme_times
-censp  = 1-valid.er_n_pres_p$plotdatakme_censoring
-x1 = cbind(timesn, censn)
-x2 = cbind(timesp, censp)
-logrank_Yates228(x1,x2)
-# Run the exponential test to compare the failure rate before 
-valid.er_n_pres_p$times_c
-censn = 1-censn
-censp = 1-censp
-indn = which(timesn>=2.1794)
-indp = which(timesp>=2.1794)
-censn[indn] = 0
-censp[indp] = 0
-timesn[indn] = 2.1794
-timesp[indp] = 2.1794
-ttot1 = sum(timesn) 
-d1 = sum(censn)
-ttot2 = sum(timesp) 
-d2 = sum(censp)
-reout=exact_pvalue(ttot1,ttot2,d1,d2,0)
-a2 = reout[1]
-p2 = reout[2]
-# two sided exact test p= 0.4949;
-reout=exact_pvalue(ttot1,ttot2,d1,d2,2)
-a2 = reout[1]
-p2 = reout[2]
-# one-sided test exact p-value 0.4647;
-
-timesn = train.er_n_prechem_n$plotdatakme_times
-censn  = 1-train.er_n_prechem_n$plotdatakme_censoring
-timesp = train.er_n_prechem_p$plotdatakme_times
-censp  = 1-train.er_n_prechem_p$plotdatakme_censoring
-x1 = cbind(timesn, censn)
-x2 = cbind(timesp, censp)
-logrank_Yates228(x1,x2)
-# Run the exponential test to compare the failure rate before 
-train.er_n_prechem_n$times_c
-censn = 1-censn
-censp = 1-censp
-indn = which(timesn>=2.7325)
-indp = which(timesp>=2.7325)
-censn[indn] = 0
-censp[indp] = 0
-timesn[indn] = 2.7325
-timesp[indp] = 2.7325
-ttot1 = sum(timesn) 
-d1 = sum(censn)
-ttot2 = sum(timesp) 
-d2 = sum(censp)
-reout=exact_pvalue(ttot1,ttot2,d1,d2,0)
-a2 = reout[1]
-p2 = reout[2]
-# two sided exact test p= 0.4949;
-reout=exact_pvalue(ttot1,ttot2,d1,d2,2)
-a2 = reout[1]
-p2 = reout[2]
-# one-sided test exact p-value 0.4647;
-
-timesn = valid.er_n_prechem_n$plotdatakme_times
-censn  = 1-valid.er_n_prechem_n$plotdatakme_censoring
-timesp = valid.er_n_prechem_p$plotdatakme_times
-censp  = 1-valid.er_n_prechem_p$plotdatakme_censoring
-x1 = cbind(timesn, censn)
-x2 = cbind(timesp, censp)
-logrank(x1,x2)
-logrank_Yates228(x1,x2)
-
-# Run the exponential test to compare the failure rate before 
-# the change point time 2.17933;
-censn = 1-censn
-censp = 1-censp
-indn = which(timesn>=2.17933)
-indp = which(timesp>=2.17933)
-censn[indn] = 0
-censp[indp] = 0
-timesn[indn] = 2.17933
-timesp[indp] = 2.17933
-ttot1 = sum(timesn)
-d1 = sum(censn)
-ttot2 = sum(timesp) 
-d2 = sum(censp)
-reout=exact_pvalue(ttot1,ttot2,d1,d2,0)
-a2 = reout[1]
-p2 = reout[2]
-# two sided exact test p= 0.4949;
-reout=exact_pvalue(ttot1,ttot2,d1,d2,2)
-a2 = reout[1]
-p2 = reout[2]
-# one-sided test exact p-value 0.0167
-
-# Note: Thelog rank test at cut off 2.17933 gives p-value 0.0348;
-
-ttot1
-ttot2
-d1
-d2
-ttot1/d1
-ttot2/d2
 

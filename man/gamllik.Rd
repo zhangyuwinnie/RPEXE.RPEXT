@@ -2,32 +2,36 @@
 % Please edit documentation in R/gamllik.R
 \name{gamllik}
 \alias{gamllik}
-\title{Computing the log likelihood from the gamma distribution}
+\title{Log likelihood from the gamma distribution}
 \usage{
 gamllik(structtime,structttot,structdeaths,time_die,ttot,deaths)
 }
 \arguments{
-\item{structtime}{times under restriction}
+\item{structtime}{change-point times to be used to compute the likelihood value}
 
-\item{structttot}{ttots between each time point and the previous
-time point (or 0) under restriction}
+\item{structttot}{total time on test (ttot) between each time point and the previous time point (or 0) corresponding to structtime}
 
-\item{structdeaths}{number of deaths corresponding to struct.ttot}
+\item{structdeaths}{number of deaths corresponding to structttot}
 
-\item{time_die}{all possible times to make the cuts}
+\item{time_die}{all event and censoring times from small to large}
 
-\item{ttot}{ttots corresponding to time_die}
+\item{ttot}{total time on test corresponding to time_die}
 
-\item{deaths}{dealthes corresponding to ttot}
+\item{deaths}{the number of deaths corresponding to "ttot"}
 }
 \value{
 log of the likelihood
 }
 \description{
-A function computing the log likelihood from the gamma distribution under
-      an order restriction reduction
+A function computing the log likelihood from the gamma distribution under an order restriction reduction
 }
 \examples{
-
+data(gamllik_data)
+structtime = c(0.08493151, 1.89315068, 2.38630137, 12.70958904, 18.59452055, 23.46027397, 24.70958904, 28.03013699, 47.85479452, 51.07671233)
+structttot = c(15.08493, 302.03836,  73.34795, 1090.68493, 345.04110, 199.20000, 41.22740, 99.71507, 369.89589,  82.45479)
+structdeaths = c(2, 25, 6, 76, 22, 10, 2, 4, 6, 1)
+time_die = gamllik_data[,1]
+ttot = gamllik_data[,2]
+deaths = gamllik_data[,3]
+gamllik(structtime,structttot,structdeaths,time_die,ttot,deaths)
 }
-
