@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/RPEXE.RPEXT)](https://cran.r-project.org/package=RPEXE.RPEXT)
 RPEXE.RPEXT
 ===========
 
